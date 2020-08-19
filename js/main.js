@@ -16,9 +16,12 @@ var pageResize500 = false;
 var pageResize765 = false;
 var pageResize1000 = false;
 var pageResizeFull = false;
+var progressBar = false;
 
-//Create Html Scroll Smooth
-myHtml[0].style.scrollBehavior = 'smooth';
+// //Create Html Scroll Smooth
+setTimeout(() => {
+  myHtml[0].style.scrollBehavior = 'smooth';
+}, 1500);
 
 //Create Style
 myBody.style.margin = '0px';
@@ -117,7 +120,8 @@ function anim() {
 var setAnim = setInterval(anim, 50);
 
 window.onload = function () {
-  clearInterval(setAnim);
+  history.replaceState(null, null, ' ');
+  window.scrollTo(0, 0);
   myLoad.style.display = 'none';
   if (window.innerWidth < 501) {
     mediaQuery500();
@@ -438,7 +442,7 @@ for (var i = 0; i < allLink.length; i++) {
     //----
     else if (pageResize1000 || pageResizeFull) {
       if (this.textContent == 'home') {
-        window.scrollTo(0, 0);
+        this.href = '#myhome';
       } else if (this.textContent == 'about me') {
         this.href = '#aboutsMe';
       } else if (this.textContent == 'skills') {
@@ -841,42 +845,46 @@ var photoshopCounter = 0;
 var illustratorCounter = 0;
 var htmlCounter = 0;
 var phpCounter = 0;
-//PhotoShop
-var mySkillPhoto = setInterval(() => {
-  mySkillsSpan[0].textContent = photoshopCounter + '%';
-  mySkillsSpan[0].style.paddingLeft = photoshopCounter + '%';
-  if (photoshopCounter == 70) {
-    clearInterval(mySkillPhoto);
-  }
-  photoshopCounter++;
-}, 50);
-//illustrator
-var mySkillIllustrator = setInterval(() => {
-  mySkillsSpan[1].textContent = illustratorCounter + '%';
-  mySkillsSpan[1].style.paddingLeft = illustratorCounter + '%';
-  if (illustratorCounter == 60) {
-    clearInterval(mySkillIllustrator);
-  }
-  illustratorCounter++;
-}, 50);
-//HTML
-var mySkillHtml = setInterval(() => {
-  mySkillsSpan[2].textContent = htmlCounter + '%';
-  mySkillsSpan[2].style.paddingLeft = htmlCounter + '%';
-  if (htmlCounter == 85) {
-    clearInterval(mySkillHtml);
-  }
-  htmlCounter++;
-}, 50);
-//PHP
-var mySkillPhp = setInterval(() => {
-  mySkillsSpan[3].textContent = phpCounter + '%';
-  mySkillsSpan[3].style.paddingLeft = phpCounter + '%';
-  if (phpCounter == 70) {
-    clearInterval(mySkillPhp);
-  }
-  phpCounter++;
-}, 50);
+
+function skillProgress() {
+  //PhotoShop
+  var mySkillPhoto = setInterval(() => {
+    mySkillsSpan[0].textContent = photoshopCounter + '%';
+    mySkillsSpan[0].style.paddingLeft = photoshopCounter + '%';
+    if (photoshopCounter == 70) {
+      clearInterval(mySkillPhoto);
+    }
+    photoshopCounter++;
+  }, 50);
+  //illustrator
+  var mySkillIllustrator = setInterval(() => {
+    mySkillsSpan[1].textContent = illustratorCounter + '%';
+    mySkillsSpan[1].style.paddingLeft = illustratorCounter + '%';
+    if (illustratorCounter == 60) {
+      clearInterval(mySkillIllustrator);
+    }
+    illustratorCounter++;
+  }, 50);
+  //HTML
+  var mySkillHtml = setInterval(() => {
+    mySkillsSpan[2].textContent = htmlCounter + '%';
+    mySkillsSpan[2].style.paddingLeft = htmlCounter + '%';
+    if (htmlCounter == 85) {
+      clearInterval(mySkillHtml);
+    }
+    htmlCounter++;
+  }, 50);
+  //PHP
+  var mySkillPhp = setInterval(() => {
+    mySkillsSpan[3].textContent = phpCounter + '%';
+    mySkillsSpan[3].style.paddingLeft = phpCounter + '%';
+    if (phpCounter == 70) {
+      clearInterval(mySkillPhp);
+    }
+    phpCounter++;
+  }, 50);
+}
+
 // -------------------------( End My sKILLS )-------------------------
 // =========================( Start Resume )==========================
 
@@ -1776,6 +1784,9 @@ window.onscroll = function () {
       removeActiv();
       allLink[3].style.color = 'rgb(7, 160, 94)';
       allLink[3].setAttribute('id', 'activ');
+    } else if (window.scrollY > 1330 && !progressBar) {
+      skillProgress();
+      progressBar = true;
     } else if (window.scrollY > 1330) {
       removeActiv();
       allLink[2].style.color = 'rgb(7, 160, 94)';
@@ -1818,6 +1829,9 @@ window.onscroll = function () {
       removeActiv();
       allLink[3].style.color = 'rgb(7, 160, 94)';
       allLink[3].setAttribute('id', 'activ');
+    } else if (window.scrollY > 1650 && !progressBar) {
+      skillProgress();
+      progressBar = true;
     } else if (window.scrollY > 1650) {
       removeActiv();
       allLink[2].style.color = 'rgb(7, 160, 94)';
@@ -1851,11 +1865,21 @@ window.onscroll = function () {
       mySelect.value = mySelect[4].value;
     } else if (window.scrollY > 2940) {
       mySelect.value = mySelect[3].value;
+    } else if (window.scrollY > 2000 && !progressBar) {
+      skillProgress();
+      progressBar = true;
     } else if (window.scrollY > 2000) {
       mySelect.value = mySelect[2].value;
     } else if (window.scrollY > 1000) {
       mySelect.value = mySelect[1].value;
     } else mySelect.value = mySelect[0].value;
+  }
+  //----
+  else if (pageResize500) {
+    if (window.scrollY > 2050 && !progressBar) {
+      skillProgress();
+      progressBar = true;
+    }
   }
 };
 
